@@ -1,0 +1,29 @@
+{
+	"schemaVersion": 1,
+	"id": "uncapped-villager-levels",
+	"version": "${version}",
+	"name": "Uncapped Villager Levels",
+	"description": "Removes the level cap on villagers, allowing them to be leveled up indefinitely. This will make them have bigger stocks but won't increase their trades.",
+	"authors": [
+		"IxPrumxI"
+	],
+	"contact": {
+		"sources": "https://github.com/IxPrumxI/uncapped-villager-levels"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/uncapped-villager-levels/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"me.prum.uncappedvillagerlevels.Main"
+		]
+	},
+	"mixins": [
+		"uncapped-villager-levels.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.1",
+		"java": ">=17"
+	}
+}
