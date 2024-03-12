@@ -15,8 +15,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(VillagerEntity.class)
-public abstract class VillagerMixin extends MerchantEntity {
-
+public abstract class VillagerMixin extends VillagerEntity {
 	public VillagerMixin(EntityType<? extends VillagerEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -36,13 +35,13 @@ public abstract class VillagerMixin extends MerchantEntity {
 		// After that, each level requires 50% more experience than the previous level.
 
 		int experience;
-		if(level < 0) level = 1;
+		if(level < 0) level = 0;
 		switch (level) {
-			case 1 -> experience = 0;
-			case 2 -> experience = 10;
-			case 3 -> experience = 70;
-			case 4 -> experience = 150;
-			case 5 -> experience = 250;
+			case 0 -> experience = 0;
+			case 1 -> experience = 10;
+			case 2 -> experience = 70;
+			case 3 -> experience = 150;
+			case 4 -> experience = 250;
 			default -> {
 				experience = 250;
 				for (int i = 5; i < level; i++) {
