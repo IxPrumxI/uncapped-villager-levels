@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(VillagerEntity.class)
-public abstract class VillagerMixin extends VillagerEntity {
+public abstract class VillagerMixin extends MerchantEntity {
 	public VillagerMixin(EntityType<? extends VillagerEntity> entityType, World world) {
 		super(entityType, world);
 	}
