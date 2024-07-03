@@ -1,5 +1,6 @@
 package me.prum.uncappedvillagerlevels.mixin;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -74,8 +75,7 @@ public abstract class VillagerMixin extends MerchantEntity {
 		// 3 max uses are enchanted but not books.
 
 		for (TradeOffer offer : currentOffers) {
-			NbtCompound nbt = offer.toNbt();
-			int maxUses = nbt.getInt("maxUses");
+			int maxUses = offer.getMaxUses();
 
 			// Check if the item is enchanted but not a book
 			ItemStack sellItem = offer.getSellItem();
@@ -86,7 +86,7 @@ public abstract class VillagerMixin extends MerchantEntity {
 			} else if(sellItem.hasEnchantments()) {
 				// Item is enchanted but not a book (I.E. tools, armor, etc.).
 				if(this.getVillagerData().getLevel() % 5 == 0) maxUses++;
-			} else if(sellItem.isFood()) {
+			} else if(sellItem.getComponents().contains(DataComponentTypes.FOOD)) {
 				// Item is food.
 				maxUses++; // every level
 			} else if(sellItem.getItem().equals(Items.EMERALD) ) {
@@ -97,11 +97,10 @@ public abstract class VillagerMixin extends MerchantEntity {
 				if(this.getVillagerData().getLevel() % 2 == 0) maxUses++;
 			}
 
-			nbt.putInt("maxUses", maxUses);
-			TradeOffer newOffer = new TradeOffer(nbt);
-			newOffer.resetUses();
+			((TradeOfferAccessor) offer).setMaxUses(maxUses);
+			((TradeOfferAccessor) offer).setUses(0);
 
-			newOffers.add(newOffer);
+			newOffers.add(offer);
 		}
 
 		// this.setOffersFromServer(newOffers); //Doesn't work
